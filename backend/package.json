@@ -4,7 +4,13 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "start": "node server.js",
-    "dev": "node --watch server.js"
+    "start": "node auth-service/server.js",
+    "dev": "node --watch auth-service/server.js",
+    "start:auth": "node auth-service/server.js",
+    "start:hr": "node hr-service/server.js",
+    "setup:oracle": "node setup-oracle.js"
+  },
+  "dependencies": {
+    "oracledb": "^6.10.0"
   }
 }

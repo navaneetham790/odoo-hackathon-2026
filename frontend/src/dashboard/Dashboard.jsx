@@ -1,6 +1,13 @@
-import { CalendarCheck, LogOut, Users } from 'lucide-react'
+import { useState } from 'react'
+import { Bell, CalendarCheck, CheckCircle2, CircleDollarSign, Clock3, LayoutDashboard, LogOut, Menu, UserRound, Users, X } from 'lucide-react'
+import EmployeePortal from '../employee/EmployeePortal'
+import HrPortal from '../hr/HrPortal'
+import './Dashboard.css'
 
 export default function Dashboard({ user, onLogout }) {
-  return <main className="min-h-screen bg-slate-50 p-5 text-slate-900 sm:p-10"><header className="mx-auto flex max-w-6xl items-center justify-between"><div className="flex items-center gap-2 text-xl font-bold"><span className="h-8 w-8 rounded-lg bg-blue-600" /> Dayflow</div><button onClick={onLogout} className="flex items-center gap-2 font-semibold text-slate-600"><LogOut size={18} /> Sign Out</button></header><section className="mx-auto mt-14 max-w-6xl"><p className="font-semibold text-blue-600">{user.role} PORTAL</p><h1 className="mt-2 text-4xl font-extrabold">Welcome, {user.employeeId}</h1><p className="mt-3 text-slate-500">You have successfully signed in to your Dayflow dashboard.</p><div className="mt-10 grid gap-5 sm:grid-cols-2"><Card icon={Users} title="My Profile" text="View and update your employee information." /><Card icon={CalendarCheck} title="Attendance & Leave" text="Track attendance and manage your leave requests." /></div></section></main>
+  const isHr = user.role === 'HR'
+  const [page, setPage] = useState('dashboard')
+  const [menuOpen, setMenuOpen] = useState(false)
+  const links = isHr ? [['dashboard', LayoutDashboard, 'Dashboard'], ['employees', Users, 'Employees'], ['attendance', Clock3, 'Attendance'], ['approvals', CheckCircle2, 'Leave Approvals'], ['payroll', CircleDollarSign, 'Payroll']] : [['dashboard', LayoutDashboard, 'Dashboard'], ['profile', UserRound, 'My Profile'], ['attendance', Clock3, 'Attendance'], ['leave', CalendarCheck, 'Leave & Time-Off'], ['payroll', CircleDollarSign, 'Payroll']]
+  return <main className="shell"><aside className={menuOpen ? 'side open' : 'side'}><div className="brand"><i />Dayflow <button onClick={() => setMenuOpen(false)}><X /></button></div><small>{isHr ? 'HR OFFICER PORTAL' : 'EMPLOYEE PORTAL'}</small><nav>{links.map(([key, Icon, label]) => <button className={page === key ? 'active' : ''} key={key} onClick={() => { setPage(key); setMenuOpen(false) }}><Icon size={19} />{label}</button>)}</nav><button className="logout" onClick={onLogout}><LogOut size={19} />Sign Out</button></aside><div className="workspace"><header><button className="menu" onClick={() => setMenuOpen(true)}><Menu /></button><div><p>{isHr ? 'HR management workspace' : 'Good morning'}</p><h1>{links.find(([key]) => key === page)?.[2]}</h1></div><div className="top-right"><Bell /><span>{user.employeeId?.slice(-2)}</span></div></header><section className="content">{isHr ? <HrPortal page={page} /> : <EmployeePortal page={page} user={user} />}</section></div></main>
 }
-function Card({ icon: Icon, title, text }) { return <article className="rounded-2xl border border-slate-200 bg-white p-7 shadow-sm"><Icon className="mb-4 text-blue-600" /><h2 className="text-xl font-bold">{title}</h2><p className="mt-2 text-slate-500">{text}</p></article> }
