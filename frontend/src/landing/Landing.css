@@ -1,0 +1,55 @@
+.landing-page { scroll-behavior: smooth; }
+.landing-nav-link { position: relative; padding: .25rem 0; color: #475569; font-weight: 500; transition: color .2s ease; }
+.landing-nav-link:hover { color: #2563eb; }
+.landing-nav-link::after { position: absolute; right: 0; bottom: -.45rem; left: 0; height: 2px; border-radius: 9999px; background: #2563eb; content: ''; transform: scaleX(0); transform-origin: center; transition: transform .2s ease; }
+.landing-nav-link--active { color: #2563eb; }
+.landing-nav-link--active::after { transform: scaleX(1); }
+.landing-section-anchor { scroll-margin-top: 5rem; }
+.landing-contact-section { display: flex; min-height: calc(100vh - 5rem); flex-direction: column; justify-content: space-between; }
+.landing-sign-in { color: #475569; font-weight: 500; padding: .5rem .75rem; }
+.landing-primary-button { border-radius: .75rem; background: #2563eb; color: white; font-weight: 600; padding: 1rem 2rem; box-shadow: 0 4px 6px rgb(37 99 235 / .2); transition: background .2s ease, transform .2s ease; }
+.landing-primary-button:hover { background: #1d4ed8; transform: translateY(-1px); }
+.landing-primary-button--small { padding: .625rem 1.25rem; border-radius: .5rem; }
+.landing-hero__glow { position: absolute; border-radius: 9999px; filter: blur(64px); opacity: .5; pointer-events: none; }
+.landing-hero__glow--right { width: 50rem; height: 50rem; right: -10rem; top: -10rem; background: #dbeafe; }
+.landing-hero__glow--left { width: 37.5rem; height: 37.5rem; left: -10rem; bottom: -10rem; background: #e0e7ff; }
+.landing-badge { display: inline-flex; align-items: center; gap: .5rem; margin-bottom: 2rem; padding: .5rem 1rem; border-radius: 9999px; border: 1px solid #dbeafe; background: #eff6ff; color: #1d4ed8; font-size: .875rem; font-weight: 500; }
+.landing-badge__dot { width: .5rem; height: .5rem; border-radius: 9999px; background: #3b82f6; box-shadow: 0 0 0 4px rgb(96 165 250 / .2); }
+.landing-gradient-text { color: transparent; background: linear-gradient(90deg, #2563eb, #4f46e5); background-clip: text; }
+.landing-dark-button, .landing-secondary-button { display: inline-flex; width: 100%; align-items: center; justify-content: center; gap: .5rem; border-radius: .75rem; padding: 1rem 2rem; font-size: 1.125rem; font-weight: 600; transition: all .2s ease; }
+.landing-dark-button { background: #0f172a; color: white; box-shadow: 0 10px 15px rgb(15 23 42 / .18); }
+.landing-dark-button:hover { background: #1e293b; transform: translateY(-1px); }
+.landing-secondary-button { border: 1px solid #e2e8f0; background: white; color: #334155; box-shadow: 0 1px 3px rgb(15 23 42 / .08); }
+.landing-secondary-button:hover { background: #f8fafc; }
+.landing-dashboard__window { overflow: hidden; border: 1px solid #f1f5f9; border-radius: 1rem; background: white; padding: .5rem; box-shadow: 0 25px 50px -12px rgb(15 23 42 / .2); }
+.landing-window-dot { display: block; width: .75rem; height: .75rem; border-radius: 50%; }
+.landing-stat-icon, .landing-feature-icon { display: flex; flex-shrink: 0; align-items: center; justify-content: center; border-radius: .75rem; }
+.landing-stat-icon { width: 3rem; height: 3rem; }
+.landing-stat-icon--blue, .landing-feature-icon--blue { background: #dbeafe; color: #2563eb; }
+.landing-stat-icon--green { background: #dcfce7; color: #16a34a; }
+.landing-feature-card { border: 1px solid #f1f5f9; border-radius: 1rem; background: #f8fafc; padding: 2rem; transition: box-shadow .2s ease, transform .2s ease; }
+.landing-feature-card:hover { transform: translateY(-3px); box-shadow: 0 12px 28px rgb(15 23 42 / .09); }
+.landing-feature-icon { width: 3.5rem; height: 3.5rem; margin-bottom: 1.5rem; }
+.landing-feature-icon--emerald { background: #d1fae5; color: #059669; }
+.landing-feature-icon--purple { background: #f3e8ff; color: #9333ea; }
+.landing-feature-icon--rose { background: #ffe4e6; color: #e11d48; }
+.landing-feature-icon--amber { background: #fef3c7; color: #d97706; }
+.landing-feature-icon--indigo { background: #e0e7ff; color: #4f46e5; }
+.landing-about-panel { border: 1px solid #dbeafe; border-radius: 1.25rem; background: linear-gradient(145deg, #eff6ff, #fff); padding: 1.5rem; box-shadow: 0 18px 45px rgb(37 99 235 / .12); }
+.landing-about-panel__header { display: flex; align-items: center; gap: .6rem; margin-bottom: 1.25rem; color: #1e3a8a; font-weight: 700; }
+.landing-about-item { display: flex; gap: .8rem; border: 1px solid #e0e7ff; border-radius: .75rem; background: white; padding: 1rem; }
+.landing-about-item > span { display: flex; width: 2.25rem; height: 2.25rem; flex-shrink: 0; align-items: center; justify-content: center; border-radius: .55rem; background: #dbeafe; color: #2563eb; }
+.landing-about-item h3 { color: #1e293b; font-weight: 700; }
+.landing-about-item p { margin-top: .15rem; color: #64748b; font-size: .875rem; }
+.landing-benefit-card { border: 1px solid #e2e8f0; border-radius: 1rem; background: white; padding: 2rem; }
+.landing-benefit-icon { display: flex; width: 3rem; height: 3rem; align-items: center; justify-content: center; margin-bottom: 1.25rem; border-radius: .75rem; background: #dbeafe; color: #2563eb; }
+.landing-footer { border-top: 1px solid #1e293b; background: #0f172a; }
+.landing-footer a { color: #cbd5e1; transition: color .2s ease; }
+.landing-footer a:hover { color: #60a5fa; }
+.landing-footer-copyright { margin-top: .75rem; padding-top: .75rem; text-align: center; color: #93c5fd; font-size: .875rem; font-weight: 500; }
+.landing-contact-card { display: flex; align-items: center; gap: 1rem; border: 1px solid #263550; border-radius: 1rem; background: #17213a; padding: 1.25rem; color: white; transition: border-color .2s ease, transform .2s ease; }
+.landing-contact-card:hover { border-color: #3b82f6; transform: translateY(-2px); }
+.landing-contact-icon { display: flex; width: 3rem; height: 3rem; flex-shrink: 0; align-items: center; justify-content: center; border-radius: .75rem; background: #1d4ed8; color: white; }
+.landing-contact-card h3 { font-weight: 700; }
+.landing-contact-card p { margin-top: .25rem; color: #bfdbfe; font-size: .9rem; }
+@media (min-width: 640px) { .landing-dark-button, .landing-secondary-button { width: auto; } }
