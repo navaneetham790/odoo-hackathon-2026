@@ -27,7 +27,7 @@ export default function AuthPage({ initialMode = 'sign-in', onBack, onSignedIn }
       localStorage.setItem('dayflowUser', JSON.stringify(data.user))
       localStorage.setItem('dayflowToken', data.token)
       onSignedIn(data.user)
-    } catch (requestError) { setError(requestError.message) } finally { setLoading(false) }
+    } catch (requestError) { const account = localAccounts().find(item => item.email === String(form.get('email')).toLowerCase() && item.password === form.get('password')); if (account) { const user = { id: account.id, fullName: account.fullName, employeeId: account.employeeId, email: account.email, role: account.role, verified: true }; localStorage.setItem('dayflowUser', JSON.stringify(user)); localStorage.setItem('dayflowToken', 'browser-demo'); onSignedIn(user) } else setError(requestError.message === 'Failed to fetch' ? 'Create an account first on this public demo link.' : requestError.message) } finally { setLoading(false) }
   }
 
   const submitSignUp = async (event) => {
@@ -37,7 +37,7 @@ export default function AuthPage({ initialMode = 'sign-in', onBack, onSignedIn }
     try {
       const data = await callApi('/register', Object.fromEntries(form))
       setPendingEmail(data.email); setMode('sign-in'); setMessage(data.message)
-    } catch (requestError) { setError(requestError.message) } finally { setLoading(false) }
+    } catch (requestError) { if (requestError.message !== 'Failed to fetch') { setError(requestError.message); setLoading(false); return } const account = { id: `demo-${Date.now()}`, fullName: form.get('fullName'), employeeId: form.get('employeeId'), email: String(form.get('email')).toLowerCase(), role: form.get('role'), password: form.get('password') }; const accounts = localAccounts(); if (accounts.some(item => item.email === account.email || item.employeeId === account.employeeId)) setError('An account already exists with this employee ID or email.'); else { localStorage.setItem('dayflowDemoAccounts', JSON.stringify([...accounts, account])); setMode('sign-in'); setMessage('Account created. Sign in with the same email and password.') } } finally { setLoading(false) }
   }
 
   const submitVerification = async (event) => {
@@ -57,6 +57,7 @@ export default function AuthPage({ initialMode = 'sign-in', onBack, onSignedIn }
 }
 
 function Field({ icon: Icon, label, ...inputProps }) { return <label className="auth-label">{label}<span className="auth-input"><Icon size={18} /><input required {...inputProps} /></span></label> }
+function localAccounts() { try { return JSON.parse(localStorage.getItem('dayflowDemoAccounts') || '[]') } catch { return [] } }
 function SignUpForm({ onSubmit, loading, showPassword, setShowPassword, message, error, switchMode }) { const [role, setRole] = useState('Employee'); return <form onSubmit={onSubmit} className="auth-form"><Field icon={UserRound} label="Full Name" name="fullName" placeholder="Enter your full name" /><Field icon={UserRound} label={role === 'HR' ? 'HR ID' : 'Employee ID'} name="employeeId" placeholder={role === 'HR' ? 'HR001' : 'EMP001'} /><Field icon={Mail} label="Email" name="email" type="email" placeholder="you@company.com" /><label className="auth-label">Role<select name="role" value={role} onChange={event => setRole(event.target.value)}><option>Employee</option><option>HR</option></select></label><PasswordField show={showPassword} setShow={setShowPassword} /><label className="auth-label">Confirm password<input name="confirmPassword" type="password" required /></label><small className="auth-hint">Use 8+ characters with uppercase, lowercase, and a number.</small><Feedback message={message} error={error} /><button disabled={loading} className="auth-submit">{loading ? 'Creating account...' : 'Create Account'}</button><p className="auth-switch">Already have an account? <button type="button" onClick={() => switchMode('sign-in')}>Sign In</button></p></form> }
 function PasswordField({ show, setShow }) { return <label className="auth-label">Password<span className="auth-input"><LockKeyhole size={18} /><input name="password" required type={show ? 'text' : 'password'} /><button type="button" onClick={() => setShow(!show)} aria-label="Toggle password visibility">{show ? <EyeOff size={18} /> : <Eye size={18} />}</button></span></label> }
 function Feedback({ message, error }) { return <>{error && <p className="auth-error">{error}</p>}{message && <p className="auth-message">{message}</p>}</> }
