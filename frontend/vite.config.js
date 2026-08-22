@@ -4,6 +4,10 @@ import tailwindcss from '@tailwindcss/vite'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: '/odoo-hackathon-2026/',
+  base: './',
   plugins: [react(), tailwindcss()],
+  build: {
+    outDir: '../docs',
+    emptyOutDir: true,
+  },
 })
